@@ -22,7 +22,7 @@ import {
 
 import CardView from 'react-native-cardview';
 
-// import Icon from 'react-native-ionicons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { GET_MOVIE_LIST, GET_TOP_RATED_MOVIE_LIST } from '../../actions/movieActions';
 import { connect } from 'react-redux';
@@ -77,22 +77,26 @@ class MovieHome extends React.Component {
                                 <TouchableHighlight
                                     style={{
                                         width: '25%',
-                                        height: 40,
+                                        height: 60,
                                         alignSelf: 'center',
                                         alignItems: 'center',
-                                        backgroundColor: 'white',
                                         padding: 10,
                                         margin: 10}}
                                     onPress={this.onPress}
                                 >
+                                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
+                                        <Icon style={{textAlign:'center', color: 'white'}} name="plus" size = {30}/>
+                                        <Text style= {{color: 'white', marginTop: 5}}> My List </Text>
+                                    </View>
+                                    
                                     {/* <Icon name="add" /> */}
-                                    <Text> Touch Here </Text>
+                                    {/* <Text> Touch Here </Text> */}
 
                                 </TouchableHighlight>
 
                                 <TouchableHighlight
                                     style={{
-                                        width: '25%',
+                                        width: '32%',
                                         height: 40,
                                         alignSelf: 'center',
                                         alignItems: 'center',
@@ -102,22 +106,27 @@ class MovieHome extends React.Component {
                                     }}
                                     onPress={this.onPress}
                                 >
-                                    <Text> Touch Here </Text>
+                                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+                                        <Icon style={{textAlign:'center'}} name="play" size = {22}/>
+                                        <Text style= {{ marginLeft: 5, marginTop: 3}}> Play </Text>
+                                    </View>
                                 </TouchableHighlight>
 
                                 <TouchableHighlight
                                     style={{
                                         width: '25%',
-                                        height: 40,
+                                        height: 60,
                                         alignSelf: 'center',
                                         alignItems: 'center',
-                                        backgroundColor: 'white',
                                         padding: 10,
                                         margin: 10
                                     }}
                                     onPress={this.onPress}
                                 >
-                                    <Text> Touch Here </Text>
+                                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
+                                        <Icon style={{textAlign:'center', color: 'white'}} name="info-circle" size = {30}/>
+                                        <Text style= {{color: 'white', marginTop: 5}}> Info </Text>
+                                    </View>
                                 </TouchableHighlight>
                             </View>
                         </View>
