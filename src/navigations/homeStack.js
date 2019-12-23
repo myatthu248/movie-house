@@ -5,16 +5,23 @@ import {
     DetailScreen
 } from '../screens/index';
 import { createAppContainer } from 'react-navigation';
+
+import { fadeIn, fromBottom } from 'react-navigation-transitions';
+
 export const AppStack = createStackNavigator(
     {
         Home : HomeScreen,
-        Detail : DetailScreen,
+        Detail : {
+            screen: DetailScreen,
+            transitionConfig: () => fadeIn(),
+        },
     },
     {
         defaultNavigationOptions: {
             header : null
         },
-        initialRouteName : 'Home'
+        initialRouteName : 'Home',
+        transitionConfig: () => fadeIn(),
     }
 )
 
