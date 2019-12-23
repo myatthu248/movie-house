@@ -48,6 +48,7 @@ class MovieHome extends React.Component {
      componentDidMount() {
          console.log("componentDidMount")
          console.log(RandomNumber)
+         this.tirggerGetMovieList()
          this.setState({
              hotMovieUrl: defaultImageUrl + this.props.movieState.topRatedMovieList.results[RandomNumber].poster_path,
              hotMovieTitle: this.props.movieState.topRatedMovieList.results[RandomNumber].title,
@@ -65,11 +66,16 @@ class MovieHome extends React.Component {
     tirggerGetMovieList = () => {
         this.props.getMovieList("myatthu")
     }
+
+    //Navigation
+    gotoDetail = () => {
+        this.props.navigation.navigate('Detail')
+    }
     
     render(){
         // console.log(this.props.movieState.movieList.results[0]);
-        console.log(this.props.movieState.topRatedMovieList.results[0].title);
-        console.log(this.props.movieState.trendingMovieList.results[0].title);
+        // console.log(this.props.movieState.topRatedMovieList.results[0].title);
+        // console.log(this.props.movieState.trendingMovieList.results[0].title);
         // console.log(defaultImageUrl + this.props.movieState.topRatedMovieList.results[0].poster_path)
         return(
             <>
@@ -85,13 +91,13 @@ class MovieHome extends React.Component {
                             resizeMode = 'cover'
                         />
 
-                        <SafeAreaView style={{flex:1, flexDirection: 'row', alignSelf:'center', position: 'absolute', top: 20}}>
+                        <SafeAreaView style={{flex:1, flexDirection: 'row', alignSelf:'center', position: 'absolute', top: 20, backgroundColor: 'rgba(52, 52, 52, 0.1)'}}>
                             <Text style= {{fontSize: 20, color: 'white', marginTop: 5, marginRight: 10}}> TV Shows </Text>
                             <Text style= {{fontSize: 20, color: 'white', marginTop: 5}}> Movies </Text>
                             <Text style= {{fontSize: 20, color: 'white', marginTop: 5, marginLeft: 10}}> My List </Text>
                         </SafeAreaView>
 
-                        <View style={{width: '100%', height: '20%', position: 'absolute', bottom: 0}}>
+                        <View style={{width: '100%', height: '20%', position: 'absolute', bottom: 0, backgroundColor: 'rgba(52, 52, 52, 0.1)'}}>
                             {/* <Text style={[styles.movieHeadTitleTextStyle, { alignSelf: "center", textAlign: "center", width: '50%' }]}> {this.state.hotMovieTitle}</Text> */}
                             <View style={{ flex:1, flexDirection: 'row', justifyContent: 'center' }}>
                                 <TouchableHighlight
@@ -141,7 +147,7 @@ class MovieHome extends React.Component {
                                         padding: 10,
                                         margin: 10
                                     }}
-                                    onPress={this.onPress}
+                                    onPress={this.gotoDetail}
                                 >
                                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
                                         <Icon style={{textAlign:'center', color: 'white'}} name="info-circle" size = {30}/>
@@ -268,6 +274,7 @@ const styles = StyleSheet.create({
       alignItems : 'center'
     },
     scrollView: {
+        height: '100%',
         backgroundColor: Colors.black,
     },
     engine: {
