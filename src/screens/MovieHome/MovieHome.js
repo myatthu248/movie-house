@@ -36,32 +36,10 @@ class MovieHome extends React.Component {
 
     constructor(props){
         super(props)   
-        this.state = {
-            hotMovieUrl: '',
-            hotMovieTitle: '',
-            previewMovies: null,
-            upcomingMovies: null,
-            trendingMovies: null
-        }
-     }
-
-     componentDidMount() {
-         console.log("componentDidMount")
-         console.log(RandomNumber)
-         this.tirggerGetMovieList()
-         this.setState({
-             hotMovieUrl: defaultImageUrl + this.props.movieState.topRatedMovieList.results[RandomNumber].poster_path,
-             hotMovieTitle: this.props.movieState.topRatedMovieList.results[RandomNumber].title,
-            previewMovies: this.props.movieState.movieList.results,
-            topRatedMovies: this.props.movieState.topRatedMovieList.results,
-            trendingMovies: this.props.movieState.trendingMovieList.results,
-         })
-     }
-
-     componentWillMount(){
-        console.log("Hello 123 constructor");
         this.tirggerGetMovieList()
-    }
+     }
+
+     
 
     tirggerGetMovieList = () => {
         this.props.getMovieList("myatthu")
@@ -72,11 +50,33 @@ class MovieHome extends React.Component {
         this.props.navigation.navigate('Detail')
     }
     
+    renderLoading(){
+        return(
+            <View>
+                <Text>show loading</Text>
+            </View>
+        )
+    }
+
+
     render(){
-        // console.log(this.props.movieState.movieList.results[0]);
-        // console.log(this.props.movieState.topRatedMovieList.results[0].title);
-        // console.log(this.props.movieState.trendingMovieList.results[0].title);
-        // console.log(defaultImageUrl + this.props.movieState.topRatedMovieList.results[0].poster_path)
+       return( <View style={{flex:1}}> 
+            {this.props.isLoading && this.props.movieState!=null ? this.renderLoading() : this.showData()}
+       </View>) 
+    }
+
+    showData(){
+
+        console.log("movie list result " + JSON.stringify(this.props.movieState.movieList.results))
+
+        console.log("top rated list " + JSON.stringify(this.props.movieState.topRatedMovieList))
+
+       let hotMovieUrl = defaultImageUrl + this.props.movieState.topRatedMovieList.results[1].poster_path;
+        let hotMovieTitle = this.props.movieState.topRatedMovieList.results[RandomNumber].title;
+        let previewMovies = this.props.movieState.movieList.results;
+        let topRatedMovies = this.props.movieState.topRatedMovieList.results;
+       let trendingMovies = this.props.movieState.trendingMovieList.results;
+
         return(
             <>
                 <ScrollView
@@ -87,7 +87,7 @@ class MovieHome extends React.Component {
                         
                         <Image
                             style={{ width: '100%', height: '100%', alignSelf: "center", position: 'absolute' }}
-                            source={{ uri: this.state.hotMovieUrl }}
+                            source={{ uri: hotMovieUrl }}
                             resizeMode = 'cover'
                         />
 
@@ -98,7 +98,7 @@ class MovieHome extends React.Component {
                         </SafeAreaView>
 
                         <View style={{width: '100%', height: '20%', position: 'absolute', bottom: 0, backgroundColor: 'rgba(52, 52, 52, 0.1)'}}>
-                            {/* <Text style={[styles.movieHeadTitleTextStyle, { alignSelf: "center", textAlign: "center", width: '50%' }]}> {this.state.hotMovieTitle}</Text> */}
+                            {/* <Text style={[styles.movieHeadTitleTextStyle, { alignSelf: "center", textAlign: "center", width: '50%' }]}> {hotMovieTitle}</Text> */}
                             <View style={{ flex:1, flexDirection: 'row', justifyContent: 'center' }}>
                                 <TouchableHighlight
                                     style={{
@@ -166,7 +166,7 @@ class MovieHome extends React.Component {
                         <Text style={[styles.movieSectionTitleTextStyle, { color: 'white', marginVertical: 10 }]}>Previews</Text>
 
                         <FlatList
-                            data={this.state.previewMovies}
+                            data={previewMovies}
                             horizontal={true}
                             renderItem={({ item }) =>
                                 <CardView
@@ -198,7 +198,7 @@ class MovieHome extends React.Component {
                         <Text style={[styles.movieSectionTitleTextStyle, { color: 'white', marginVertical: 10 }]}>Upcoming Movies</Text>
 
                         <FlatList
-                            data={this.state.topRatedMovies}
+                            data={topRatedMovies}
                             horizontal={true}
                             renderItem={({ item }) =>
                                 <CardView
@@ -231,7 +231,7 @@ class MovieHome extends React.Component {
                         <Text style={[styles.movieSectionTitleTextStyle, { color: 'white', marginVertical: 10 }]}>Trending Now</Text>
 
                         <FlatList
-                            data={this.state.trendingMovies}
+                            data={trendingMovies}
                             horizontal={true}
                             renderItem={({ item }) =>
                                 <CardView
@@ -344,8 +344,8 @@ const mapStateToDispatch = (dispatch) => {
     return {
         getMovieList: (userName) => {
             dispatch({ type: GET_MOVIE_LIST, userName: userName })
-            dispatch({ type: GET_TOP_RATED_MOVIE_LIST, userName: userName })
-            dispatch({ type: GET_TRENDING_MOVIE_LIST })
+            // dispatch({ type: GET_TOP_RATED_MOVIE_LIST, userName: userName })
+            // dispatch({ type: GET_TRENDING_MOVIE_LIST })
         }
     }
 }

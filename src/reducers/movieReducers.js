@@ -11,7 +11,7 @@ import {
 } from "../actions/movieActions";
 
 const initState = {
-    isLoading: false,
+    isLoading: true,
     movieList: null,
     topRatedMovieList: null,
     trendingMovieList: null,
@@ -28,7 +28,6 @@ const movieReducer = (state = initState, action) => {
         case GET_MOVIE_LIST_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
                 movieList: action.payload
             }
         case GET_MOVIE_LIST_FAIL:
@@ -36,32 +35,31 @@ const movieReducer = (state = initState, action) => {
                 ...state,
                 error: action.error,
                 isLoading: false,
-                movieList: action.payload
+                movieList: action.error
             }
         case GET_TOP_RATED_MOVIE_LIST:
             return {
-                ...state,
-                isLoading: true
+                ...state
             }
         case GET_TOP_RATED_MOVIE_LIST_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
                 topRatedMovieList: action.payload
             }
         case GET_TOP_RATED_MOVIE_LIST_FAIL:
             return {
                 ...state,
                 error: action.error,
-                isLoading: false,
                 topRatedMovieList: action.payload
             }
         case GET_TRENDING_MOVIE_LIST:
+
             return {
                 ...state,
                 isLoading: true
             }
         case GET_TRENDING_MOVIE_LIST_SUCCESS:
+            console.log("GET_TRENDING_MOVIE_LIST_SUCCESS " + JSON.stringify(action))
             return {
                 ...state,
                 isLoading: false,
